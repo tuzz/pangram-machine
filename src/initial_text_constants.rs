@@ -1,3 +1,5 @@
+use crate::pairwise_sum::*;
+
 const LETTERS_NOT_IN_NUMBER_WORDS: [char; 10] = ['a', 'b', 'c', 'd', 'j', 'k', 'm', 'p', 'q', 'z'];
 
 pub fn initial_text_constants(string: &str, profiles: &[[usize; 26]; 51]) -> [usize; 26] {
@@ -24,16 +26,6 @@ pub fn initial_text_constants(string: &str, profiles: &[[usize; 26]; 51]) -> [us
     }
 
     profile
-}
-
-fn pairwise_sum(a: &[usize; 26], b: &[usize; 26]) -> [usize; 26] {
-    let mut sum = [0; 26];
-
-    for i in 0..26 {
-        sum[i] = a[i] + b[i];
-    }
-
-    sum
 }
 
 #[cfg(test)]
