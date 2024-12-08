@@ -84,4 +84,16 @@ mod test {
         assert_eq!(solutions.len(), 1);
         assert_eq!(solutions[0], [4, 1, 1, 2, 29, 8, 3, 5, 11, 1, 1, 3, 2, 22, 15, 2, 1, 7, 26, 19, 4, 5, 9, 2, 4, 1]);
     }
+
+    #[test]
+    fn it_can_find_lee_sallows_second_ever_self_enumerating_pangram() {
+        let profiles = number_profiles();
+        let initial_constants = initial_text_constants("This pangram contains &", &profiles);
+
+        let mut solutions = vec![];
+        pangram_machine(&initial_constants, &profiles, |solution| solutions.push(solution));
+
+        assert_eq!(solutions.len(), 1);
+        assert_eq!(solutions[0], [4, 1, 2, 1, 30, 6, 5, 7, 11, 1, 1, 2, 2, 18, 15, 2, 1, 5, 27, 18, 2, 7, 8, 2, 3, 1]);
+    }
 }
