@@ -81,8 +81,9 @@ mod test {
         let mut solutions = vec![];
         pangram_machine(&initial_constants, &profiles, |solution| solutions.push(solution));
 
+                               // a  b  c  d  e   f  g  h  i   j  k  l  m  n   o   p  q  r  s   t   u  v  w  x  y  z
+        assert_eq!(solutions[0], [4, 1, 1, 2, 29, 8, 3, 5, 11, 1, 1, 3, 2, 22, 15, 2, 1, 7, 26, 19, 4, 5, 9, 2, 4, 1]); // page 18
         assert_eq!(solutions.len(), 1);
-        assert_eq!(solutions[0], [4, 1, 1, 2, 29, 8, 3, 5, 11, 1, 1, 3, 2, 22, 15, 2, 1, 7, 26, 19, 4, 5, 9, 2, 4, 1]);
     }
 
     #[test]
@@ -93,7 +94,22 @@ mod test {
         let mut solutions = vec![];
         pangram_machine(&initial_constants, &profiles, |solution| solutions.push(solution));
 
+                               // a  b  c  d  e   f  g  h  i   j  k  l  m  n   o   p  q  r  s   t   u  v  w  x  y  z
+        assert_eq!(solutions[0], [4, 1, 2, 1, 30, 6, 5, 7, 11, 1, 1, 2, 2, 18, 15, 2, 1, 5, 27, 18, 2, 7, 8, 2, 3, 1]); // page 18
         assert_eq!(solutions.len(), 1);
-        assert_eq!(solutions[0], [4, 1, 2, 1, 30, 6, 5, 7, 11, 1, 1, 2, 2, 18, 15, 2, 1, 5, 27, 18, 2, 7, 8, 2, 3, 1]);
+    }
+
+    #[test]
+    fn it_can_find_lee_sallows_first_bimagic_self_enumerating_pangram() {
+        let profiles = number_profiles();
+        let initial_constants = initial_text_constants("This autogram contains and", &profiles);
+
+        let mut solutions = vec![];
+        pangram_machine(&initial_constants, &profiles, |solution| solutions.push(solution));
+
+                               // a  b  c  d  e   f  g  h  i   j  k  l  m  n   o   p  q  r  s   t   u  v  w  x  y  z
+        assert_eq!(solutions[0], [5, 1, 2, 2, 26, 6, 2, 4, 13, 1, 1, 1, 2, 21, 16, 1, 1, 5, 27, 20, 3, 6, 9, 5, 5, 1]); // page 23
+        assert_eq!(solutions[1], [5, 1, 2, 2, 31, 5, 5, 8, 12, 1, 1, 2, 2, 18, 16, 1, 1, 6, 27, 21, 3, 7, 8, 3, 4, 1]); // page 22
+        assert_eq!(solutions.len(), 2);
     }
 }
