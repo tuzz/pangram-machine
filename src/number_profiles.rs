@@ -1,4 +1,4 @@
-const NUMBER_WORDS: [&str; 51] = [
+pub const NUMBER_WORDS: [&str; 51] = [
     "zero", "one", "two", "three", "four", "five", "six", "seven", "eight",
     "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen",
     "sixteen", "seventeen", "eighteen", "nineteen", "twenty", "twenty-one",

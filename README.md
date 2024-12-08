@@ -21,7 +21,12 @@ Initial constants: [5, 1, 2, 2, 8, 2, 2, 2, 4, 1, 1, 1, 2, 10, 12, 1, 1, 2, 7, 7
 
 Running Pangram Machine Mark II...
 EUREKA! [5, 1, 2, 2, 26, 6, 2, 4, 13, 1, 1, 1, 2, 21, 16, 1, 1, 5, 27, 20, 3, 6, 9, 5, 5, 1]
+This autogram contains five a's, one b, two c's, two d's, twenty-six e's, six f's, two g's, four h's, thirteen i's, one j, one k, one l, two m's, twenty-one n's, sixteen o's, one p, one q, five r's, twenty-seven s's, twenty t's, three u's, six v's, nine w's, five x's, five y's and one z.
+
 EUREKA! [5, 1, 2, 2, 31, 5, 5, 8, 12, 1, 1, 2, 2, 18, 16, 1, 1, 6, 27, 21, 3, 7, 8, 3, 4, 1]
+This autogram contains five a's, one b, two c's, two d's, thirty-one e's, five f's, five g's, eight h's, twelve i's, one j, one k, two l's, two m's, eighteen n's, sixteen o's, one p, one q, six r's, twenty-seven s's, twenty-one t's, three u's, seven v's, eight w's, three x's, four y's and one z.
+
+Finished running.
 ```
 
 ## License

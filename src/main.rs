@@ -2,12 +2,13 @@ mod initial_text_constants;
 mod number_profiles;
 mod pairwise_sum;
 mod pangram_machine;
+mod decode_solution;
 
 use initial_text_constants::*;
 use number_profiles::*;
 use pangram_machine::*;
+use decode_solution::*;
 use std::io::{stdin, stdout, Write};
-use std::process::exit;
 
 fn main() {
     print!("Enter intial text: ");
@@ -20,14 +21,10 @@ fn main() {
     println!("Initial constants: {:?}", constants);
     println!("\nRunning Pangram Machine Mark II...");
 
-    let mut num_solutions = 0;
     pangram_machine(&constants, &profiles, |solution| {
         println!("EUREKA! {:?}", solution);
-        num_solutions += 1;
+        println!("{}\n", decode_solution(&initial_text, &solution));
     });
 
-    if num_solutions == 0 {
-        println!("Unfortunately, no solutions were found.");
-        exit(1);
-    }
+    println!("Finished running.");
 }
