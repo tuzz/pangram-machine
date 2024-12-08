@@ -5,7 +5,7 @@ pub fn pangram_machine<F: FnMut([usize; 26])>(initial_constants: &[usize; 26], p
 
     // Iterate through every combination within the specified ranges.
     for e_counter in 25..=32 {
-        let sumprofile = pairwise_sum(&sumprofile, &profiles[e_counter]);
+        let sumprofile = pairwise_sum(sumprofile, &profiles[e_counter]);
     for f_counter in 4..=9 {
         let sumprofile = pairwise_sum(&sumprofile, &profiles[f_counter]);
     for h_counter in 3..=8 {
@@ -31,7 +31,7 @@ pub fn pangram_machine<F: FnMut([usize; 26])>(initial_constants: &[usize; 26], p
 
     // Detect the values for g, l, x, y based on the window-detectors optimisation.
     let detected_g = sumprofile[6];
-    if detected_g < 2 || detected_g > 7 || detected_g == 6 { continue; }
+    if !(2..=7).contains(&detected_g) || detected_g == 6 { continue; }
 
     let detected_l = sumprofile[11];
     if detected_l > 4 { continue; }
@@ -40,7 +40,7 @@ pub fn pangram_machine<F: FnMut([usize; 26])>(initial_constants: &[usize; 26], p
     if detected_x > 5 { continue; }
 
     let detected_y = sumprofile[24];
-    if detected_y < 3 || detected_y > 5 { continue; }
+    if !(3..=5).contains(&detected_y) { continue; }
 
     // Calculate the final sumprofile.
     let sumprofile = pairwise_sum(&sumprofile, &profiles[detected_g]);
