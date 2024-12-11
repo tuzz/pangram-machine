@@ -1,13 +1,15 @@
+#![feature(portable_simd)]
+
+mod decode_solution;
 mod initial_text_constants;
 mod number_profiles;
-mod pairwise_sum;
 mod pangram_machine;
-mod decode_solution;
+mod profile;
 
+use decode_solution::*;
 use initial_text_constants::*;
 use number_profiles::*;
 use pangram_machine::*;
-use decode_solution::*;
 use std::io::{stdin, stdout, Write};
 
 fn main() {

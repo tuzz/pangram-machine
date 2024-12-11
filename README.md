@@ -2,9 +2,10 @@
 
 A software implementation of Lee Sallows' Pangram Machine from his paper
 '[In Quest of Pangram](https://www.leesallows.com/files/In%20Quest%20of%20a%20Pangram1.pdf)'.
-This repository contains an interactive Rust program that implements the same
-algorithm that his Mark II machine is based on. It is able to exhaust the
-narrowed search space in around 30 seconds on my Apple M1.
+This repository contains an interactive Rust program that implements the
+algorithm his Mark II machine is based on. It is able to exhaust the narrowed
+search space in around 13.5 seconds on one core of my Apple M1 using SIMD
+optimisations.
 
 ![Pangram Machine](machine.jpg)
 
@@ -14,7 +15,7 @@ Here is an example of running the machine for the bimagic solution described on
 page 22 of the paper:
 
 ```
-$ cargo run --release
+$ cargo +nightly run --release
 
 Enter intial text: This autogram contains and
 Initial constants: [5, 1, 2, 2, 8, 2, 2, 2, 4, 1, 1, 1, 2, 10, 12, 1, 1, 2, 7, 7, 2, 2, 4, 1, 1, 1]

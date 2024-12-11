@@ -1,69 +1,70 @@
-use crate::pairwise_sum::*;
+use crate::profile::*;
 
-pub fn pangram_machine<F: FnMut([usize; 26])>(initial_constants: &[usize; 26], profiles: &[[usize; 26]; 51], mut on_solution: F) {
-    let sumprofile = initial_constants;
+pub fn pangram_machine<F: FnMut([usize; 26])>(initial_constants: &[usize; 26], profiles: &[Profile; 51], mut on_solution: F) {
+    let sumprofile = Profile::from(initial_constants);
 
     // Iterate through every combination within the specified ranges.
     for e_counter in 25..=32 {
-        let sumprofile = pairwise_sum(sumprofile, &profiles[e_counter]);
+        let sumprofile = &sumprofile + &profiles[e_counter];
     for f_counter in 4..=9 {
-        let sumprofile = pairwise_sum(&sumprofile, &profiles[f_counter]);
+        let sumprofile = &sumprofile + &profiles[f_counter];
     for h_counter in 3..=8 {
-        let sumprofile = pairwise_sum(&sumprofile, &profiles[h_counter]);
+        let sumprofile = &sumprofile + &profiles[h_counter];
     for i_counter in 8..=14 {
-        let sumprofile = pairwise_sum(&sumprofile, &profiles[i_counter]);
+        let sumprofile = &sumprofile + &profiles[i_counter];
     for n_counter in 17..=23 {
-        let sumprofile = pairwise_sum(&sumprofile, &profiles[n_counter]);
+        let sumprofile = &sumprofile + &profiles[n_counter];
     for o_counter in 12..=17 {
-        let sumprofile = pairwise_sum(&sumprofile, &profiles[o_counter]);
+        let sumprofile = &sumprofile + &profiles[o_counter];
     for r_counter in 3..=8 {
-        let sumprofile = pairwise_sum(&sumprofile, &profiles[r_counter]);
+        let sumprofile = &sumprofile + &profiles[r_counter];
     for s_counter in 24..=30 {
-        let sumprofile = pairwise_sum(&sumprofile, &profiles[s_counter]);
+        let sumprofile = &sumprofile + &profiles[s_counter];
     for t_counter in 18..=24 {
-        let sumprofile = pairwise_sum(&sumprofile, &profiles[t_counter]);
+        let sumprofile = &sumprofile + &profiles[t_counter];
     for u_counter in 1..=6 {
-        let sumprofile = pairwise_sum(&sumprofile, &profiles[u_counter]);
+        let sumprofile = &sumprofile + &profiles[u_counter];
     for v_counter in 3..=8 {
-        let sumprofile = pairwise_sum(&sumprofile, &profiles[v_counter]);
-    for w_counter in 7..= 13 {
-        let sumprofile = pairwise_sum(&sumprofile, &profiles[w_counter]);
+        let sumprofile = &sumprofile + &profiles[v_counter];
+    for w_counter in 7..=13 {
+        let sumprofile = &sumprofile + &profiles[w_counter];
 
-    // Detect the values for g, l, x, y based on the window-detectors optimisation.
-    let detected_g = sumprofile[6];
-    if !(2..=7).contains(&detected_g) || detected_g == 6 { continue; }
+        // Detect the values for g, l, x, y based on the window-detectors optimisation.
+        let detected_g = sumprofile['g'];
+        if !(2..=7).contains(&detected_g) || detected_g == 6 { continue; }
 
-    let detected_l = sumprofile[11];
-    if detected_l > 4 { continue; }
+        let detected_l = sumprofile['l'];
+        if detected_l > 4 { continue; }
 
-    let detected_x = sumprofile[23];
-    if detected_x > 5 { continue; }
+        let detected_x = sumprofile['x'];
+        if detected_x > 5 { continue; }
 
-    let detected_y = sumprofile[24];
-    if !(3..=5).contains(&detected_y) { continue; }
+        let detected_y = sumprofile['y'];
+        if !(3..=5).contains(&detected_y) { continue; }
 
-    // Calculate the final sumprofile.
-    let sumprofile = pairwise_sum(&sumprofile, &profiles[detected_g]);
-    let sumprofile = pairwise_sum(&sumprofile, &profiles[detected_l]);
-    let sumprofile = pairwise_sum(&sumprofile, &profiles[detected_x]);
-    let sumprofile = pairwise_sum(&sumprofile, &profiles[detected_y]);
+        // Calculate the final sumprofile.
+        let sumprofile = &sumprofile + &profiles[detected_g as usize];
+        let sumprofile = &sumprofile + &profiles[detected_l as usize];
+        let sumprofile = &sumprofile + &profiles[detected_x as usize];
+        let sumprofile = &sumprofile + &profiles[detected_y as usize];
 
-    // Check if the claimed numbers balance with the true numbers.
-    if e_counter != sumprofile[4] { continue; }
-    if f_counter != sumprofile[5] { continue; }
-    if h_counter != sumprofile[7] { continue; }
-    if i_counter != sumprofile[8] { continue; }
-    if n_counter != sumprofile[13] { continue; }
-    if o_counter != sumprofile[14] { continue; }
-    if r_counter != sumprofile[17] { continue; }
-    if s_counter != sumprofile[18] { continue; }
-    if t_counter != sumprofile[19] { continue; }
-    if u_counter != sumprofile[20] { continue; }
-    if v_counter != sumprofile[21] { continue; }
-    if w_counter != sumprofile[22] { continue; }
+        // Check if the claimed numbers balance with the true numbers.
+        let [e, f, _g, h, i, _l, n, o, r, s, t, u, v, w, _x, _y] = sumprofile.to_array();
 
-    on_solution(sumprofile); // EUREKA!
+        if e_counter as u8 != e { continue; }
+        if f_counter as u8 != f { continue; }
+        if h_counter as u8 != h { continue; }
+        if i_counter as u8 != i { continue; }
+        if n_counter as u8 != n { continue; }
+        if o_counter as u8 != o { continue; }
+        if r_counter as u8 != r { continue; }
+        if s_counter as u8 != s { continue; }
+        if t_counter as u8 != t { continue; }
+        if u_counter as u8 != u { continue; }
+        if v_counter as u8 != v { continue; }
+        if w_counter as u8 != w { continue; }
 
+        on_solution(sumprofile.with(initial_constants));
     }}}}}}}}}}}}
 }
 

@@ -1,23 +1,23 @@
-use crate::pairwise_sum::*;
+use crate::profile::*;
 
 const LETTERS_NOT_IN_NUMBER_WORDS: [char; 10] = ['a', 'b', 'c', 'd', 'j', 'k', 'm', 'p', 'q', 'z'];
 
-pub fn initial_text_constants(string: &str, profiles: &[[usize; 26]; 51]) -> [usize; 26] {
-    let mut profile = [1; 26]; // Add one of each letter.
+pub fn initial_text_constants(string: &str, number_profiles: &[Profile; 51]) -> [usize; 26] {
+    let mut constants = [1; 26]; // Add one of each letter.
 
     let lowercase = string.to_lowercase();
     let letters = lowercase.chars().filter(|c| c.is_ascii_alphabetic());
 
     for letter in letters {
-        profile[(letter as u8 - b'a') as usize] += 1; // Add the letters from the string.
+        constants[(letter as u8 - b'a') as usize] += 1; // Add the letters from the string.
     }
 
     for letter in LETTERS_NOT_IN_NUMBER_WORDS.iter() {
-        let count = profile[(*letter as u8 - b'a') as usize];
-        profile = pairwise_sum(&profile, &profiles[count]); // Add letters from already-known number words.
+        let count = constants[(*letter as u8 - b'a') as usize];
+        constants = &number_profiles[count] + &constants;
     }
 
-    profile
+    constants
 }
 
 #[cfg(test)]
