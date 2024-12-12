@@ -1,0 +1,25 @@
+name: CI
+on:
+  push:
+    branches:
+      - '*'
+
+jobs:
+  CI:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Install Rust prerequisites
+      run: sudo apt update && sudo apt install -y curl build-essential pkg-config
+
+    - uses: actions-rust-lang/setup-rust-toolchain@v1
+      with:
+        toolchain: nightly
+        components: clippy
+        rustflags: '' # Use .cargo/config
+
+    - uses: actions/checkout@v3
+    - run: cargo test --locked --release
+    - run: cargo check --locked --release
+    - run: cargo clippy --locked --release
+    - run: cargo build --locked --release
