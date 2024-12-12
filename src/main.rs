@@ -10,13 +10,14 @@ use decode_solution::*;
 use initial_text_constants::*;
 use number_profiles::*;
 use pangram_machine::*;
-use std::io::{stdin, stdout, Write};
+use std::io::{stdin, stdout, Write, IsTerminal};
 
 fn main() {
     print!("Enter intial text: ");
     let mut initial_text = String::new();
     stdout().flush().unwrap();
     stdin().read_line(&mut initial_text).unwrap();
+    if !stdin().is_terminal() { print!("{}", initial_text); }
 
     let profiles = number_profiles();
     let constants = initial_text_constants(&initial_text, &profiles);
