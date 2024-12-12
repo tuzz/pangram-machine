@@ -1,7 +1,8 @@
 use crate::profile::*;
 
-pub fn pangram_machine<F: FnMut([usize; 26])>(initial_constants: &[usize; 26], profiles: &[Profile; 51], mut on_solution: F) {
+pub fn pangram_machine<F: FnMut([usize; 26])>(initial_constants: &[usize; 26], profiles: &[Profile; 51], mut on_solution: F) -> u64 {
     let sumprofile = Profile::from(initial_constants);
+    let mut num_iterations = 0;
 
     // Iterate through every combination within the specified ranges.
     for e_counter in 25..=32 {
@@ -28,6 +29,7 @@ pub fn pangram_machine<F: FnMut([usize; 26])>(initial_constants: &[usize; 26], p
         let sumprofile = &sumprofile + &profiles[v_counter];
     for w_counter in 7..=13 {
         let sumprofile = &sumprofile + &profiles[w_counter];
+        num_iterations += 1;
 
         // Detect the values for g, l, x, y based on the window-detectors optimisation.
         let detected_g = sumprofile['g'];
@@ -66,6 +68,8 @@ pub fn pangram_machine<F: FnMut([usize; 26])>(initial_constants: &[usize; 26], p
 
         on_solution(sumprofile.with(initial_constants));
     }}}}}}}}}}}}
+
+    num_iterations
 }
 
 #[cfg(test)]

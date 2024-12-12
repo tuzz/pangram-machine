@@ -27,7 +27,7 @@ This autogram contains five a's, one b, two c's, two d's, twenty-six e's, six f'
 EUREKA! [5, 1, 2, 2, 31, 5, 5, 8, 12, 1, 1, 2, 2, 18, 16, 1, 1, 6, 27, 21, 3, 7, 8, 3, 4, 1]
 This autogram contains five a's, one b, two c's, two d's, thirty-one e's, five f's, five g's, eight h's, twelve i's, one j, one k, two l's, two m's, eighteen n's, sixteen o's, one p, one q, six r's, twenty-seven s's, twenty-one t's, three u's, seven v's, eight w's, three x's, four y's and one z.
 
-Finished running.
+Finished 6273179136 iterations in 13.41 seconds which is equivalent to 467.9 MHz.
 ```
 
 ## License
