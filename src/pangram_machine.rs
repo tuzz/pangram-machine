@@ -1,12 +1,19 @@
 use crate::profile::*;
+use std::sync::{Arc, Mutex};
+use std::thread;
 
-pub fn pangram_machine<F: FnMut([usize; 26])>(initial_constants: &[usize; 26], profiles: &[Profile; 51], mut on_solution: F) -> u64 {
+pub fn pangram_machine<F: FnMut([usize; 26]) + Send>(initial_constants: &[usize; 26], profiles: &[Profile; 51], on_solution: F) -> u64 {
     let sumprofile = Profile::from(initial_constants);
-    let mut num_iterations = 0;
+    let on_solution = Arc::new(Mutex::new(on_solution));
 
     // Iterate through every combination within the specified ranges.
-    for e_counter in 25..=32 {
-        let sumprofile = &sumprofile + &profiles[e_counter];
+    let sumprofile = &sumprofile;
+    thread::scope(|s| {
+        let handles: Vec<_> = (25..=32).map(|e_counter| {
+        let on_solution = Arc::clone(&on_solution);
+        s.spawn(move || {
+        let sumprofile = sumprofile + &profiles[e_counter];
+        let mut num_iterations = 0u64;
     for f_counter in 4..=9 {
         let sumprofile = &sumprofile + &profiles[f_counter];
     for h_counter in 3..=8 {
@@ -66,10 +73,13 @@ pub fn pangram_machine<F: FnMut([usize; 26])>(initial_constants: &[usize; 26], p
         if v_counter as u8 != v { continue; }
         if w_counter as u8 != w { continue; }
 
-        on_solution(sumprofile.with(initial_constants));
-    }}}}}}}}}}}}
-
-    num_iterations
+        on_solution.lock().unwrap()(sumprofile.with(initial_constants));
+    }}}}}}}}}}}
+        num_iterations
+        })
+        }).collect();
+        handles.into_iter().map(|h| h.join().unwrap()).sum()
+    })
 }
 
 #[cfg(test)]
