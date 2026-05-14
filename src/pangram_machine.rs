@@ -121,6 +121,7 @@ mod test {
 
         let mut solutions = vec![];
         pangram_machine(&initial_constants, &profiles, |solution| solutions.push(solution));
+        solutions.sort();
 
                                // a  b  c  d  e   f  g  h  i   j  k  l  m  n   o   p  q  r  s   t   u  v  w  x  y  z
         assert_eq!(solutions[0], [5, 1, 2, 2, 26, 6, 2, 4, 13, 1, 1, 1, 2, 21, 16, 1, 1, 5, 27, 20, 3, 6, 9, 5, 5, 1]); // page 23
